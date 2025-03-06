@@ -58,7 +58,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server .
 ```dockerfile
 FROM gcr.io/distroless/static:nonroot
 
-WORKDIR /root/
+WORKDIR /
 COPY --from=builder /app/server .
 
 # Expose port 8080 for the web server
@@ -68,7 +68,7 @@ EXPOSE 8080
 USER nonroot
 
 # Start the application
-CMD ["/root/server"]
+CMD ["./server"]
 ```
 - Uses `gcr.io/distroless/static:nonroot` for the smallest and safest runtime.
 - Copies only the compiled binary, reducing the final image size.
